@@ -1,0 +1,344 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
+
+    <!-- Custom Styling -->
+    <link rel="stylesheet" href="~/template/css/style.css">
+
+
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script src="~/Scripts/navMenu.js"></script>
+   
+   
+    <script src="~/Content/script.js"></script>
+    <script src="~/Content/slick.js"></script>
+
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/slick.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script>
+        function AjaxPost(formData) {
+            var ajaxConfig = {
+                type: "POST",
+                url: "/News/Create",
+                data: new FormData(formData),
+                success: function (result) {
+                    alert(result);
+                    window.location.href = "/News/Create";
+                }
+            }
+            if ($(formData).attr('enctype') == "multipart/form-data") {
+                ajaxConfig["contentType"] = false;
+                ajaxConfig["processData"] = false;
+            }
+            $.ajax(ajaxConfig);
+            return false;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header-mid gray-bg">
+            <div class="container">
+                <div class="row d-flex align-items-center">
+                    <!-- Logo -->
+                    <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
+                        <div class="logo">
+                            <img src="~/template/images/logo.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9">
+                        <div class="header-banner f-right ">
+                            <img src="~/template/images/header_card.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <nav id="custom-bootstrap-menu" class="navbar navbar-default">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" style="background-color: #ff69b4;color:white;font-size:22px">News Portal</a>
+            </div>
+
+
+
+
+            <div class="collapse navbar-collapse js-navbar-collapse" ng-app="MyApp" ng-controller="menuController" style="background-color: #ff69b4;color:white;font-size:20px">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown mega-dropdown" ng-repeat="menu in SiteMenu track by $index" style="background-color: #ff69b4;color:white;font-size:20px">
+                        <a href="{{menu.CategoryId}}" class="dropdown-toggle" data-toggle="dropdown" style="background-color: #ff69b4;color:white;font-size:20px">{{menu.Name}} <span class="caret"></span></a>
+                    @*<li>@Html.Partial("_LoginPartial")</li>*@
+              
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <li style="color:white">@Html.ActionLink("Dashboard", "Dashboard", "Admin")</li>
+
+                }
+
+
+                @*else 
+                {
+                    <li>@Html.ActionLink("Dashboard", "Dashboard", "Journalist")</li>
+
+                }*@
+                <ul class="dropdown-menu mega-dropdown-menu">
+
+                    <li class="dropdown-header">{{menu.CategoryName}}</li>
+                    <li class="col-sm-3" ng-repeat="item in menu.SubCategory track by $index">
+                        <ul>
+
+                            <li><a href="{{item.SubCategoryUrl}}" style="background-color:palevioletred">{{item.SubCategoryName}}</a></li>
+
+
+                        </ul>
+                    </li>
+                </ul>
+
+
+
+                </ul>
+
+            </div>
+
+
+
+           
+
+         
+
+
+            </li>
+            </ul>
+            </li>
+
+
+            </ul>
+
+</div>
+
+
+
+
+
+    </div>
+    <div id="myCarousel" class="carousel slide" style="width:100%">
+
+        <div class="carousel-inner" style="width:100%">
+           
+            <div class="item active">
+                <div class="slider-item" style="background-image: url('/Content/Images/img.jpg'">
+                    <div class="slider-overlay" style=" height: 90vh;">
+                        <h2>Learn from the Bests</h2>
+                        <hr>
+                        <p>Best  news portal</p>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="slider-item" style="background-image: url('/Content/Images/slider2.jpg');">
+                    <div class="slider-overlay" style=" height: 90vh;">
+                        <h2>High Quality Service</h2>
+                        <hr>
+                        <p>Here you can find the latest news</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+
+
+    </nav>
+
+
+
+    @*<div class="container">
+        <h3 style="font-family:'Agency FB';color:deeppink;font-size:40px"><b style="color:black">Latest</b> News</h3>
+        <br /><br /><br />
+        @foreach (var item in Model)
+        {
+            if (item.NewsId>1)
+
+            {
+       <div class="col-md-4" style="margin-bottom:25px">
+        <div class="thumbnail">
+            <div class="img-responsive" style="margin-bottom:20px">
+                <img src="~/NewsImages/@item.Image" height="350" width="340" />
+            </div>
+            <div class="caption" style="border-top:3px solid #808080;color:black">
+                <h4><a href="#">@item.Title</a></h4>
+                <fieldset>
+
+                    <input type="button" name="submit" value="Learn More" class="btn btn-danger" onclick='window.location = "@Url.Action("News", "Home", new { Id = item.NewsId })";' />
+                </fieldset>
+
+            </div>
+        </div> 
+        
+        
+    </div>
+
+            }
+        }
+    </div>*@
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+
+
+        <!-- // Post Slider -->
+        <!-- Content -->
+        <div class="content clearfix">
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <br /><br />         <br /><br />
+                <h3 style="font-family:'Agency FB';color:deeppink;font-size:40px"><b style="color:black; padding-left:520px">Latest</b> News</h3>
+                <br /><br />         <br /><br />
+                @foreach (var item in Model)
+                {
+                    if (item.NewsId > 4)
+                    {
+
+                        <div class="post clearfix">
+                            <img src="~/NewsImages/@item.Image" height="270" width="300" />
+
+                            <div class="post-preview">
+                                <h4><a href="#">@item.Title</a></h4>
+                                <i class="far fa-user"></i>
+                                &nbsp;
+                                <i class="far fa-calendar"> </i>
+                                <h4><a href="#">@item.Description</a></h4>
+                                <input type="button" name="submit" value="Learn More" class="btn btn-danger" onclick='window.location = "@Url.Action("News", "Home", new { Id = item.NewsId })";' />
+                            </div>
+                        </div>
+                    }
+                }
+
+
+
+
+            </div>
+
+            <!-- // Main Content -->
+          
+                <div class="sidebar" style="padding-top:150px">
+
+                    <br />
+                    <br /> <br /> <br />
+                    <div class="section topics">
+                        <h3 class="section-title">Categories</h3>
+                        <ul>
+                            <li><a href="@Url.Action("Destinations","Home")">Travel</a></li>
+                            <li><a href="@Url.Action("Technology","Home")">Technology</a></li>
+                            <li><a href="@Url.Action("Sport","Home")">Sport</a></li>
+                            <li><a href="@Url.Action("Trends","Home")">Fashion</a></li>
+                            <li><a href="@Url.Action("Magazine","Home")">Magazine</a></li>
+
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+            </div>
+
+      
+    <!-- // Page Wrapper -->
+    <!-- footer -->
+    <div class="footer" style="padding-left:120px">
+        <div class="footer-content">
+
+            <div class="footer-section about">
+                <img src="~/template/images/logo.png" alt="">
+                
+                <div class="contact">
+                    <span><i class="fas fa-phone"></i> &nbsp; 123-456-789</span>
+                    <span><i class="fas fa-envelope"></i> &nbsp; info@news.com</span>
+                </div>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section links">
+                <h3 style="color: white; font-size: 21px">Quick Links</h3>
+                <br>
+                <ul>
+                    
+                    <a href="#">
+                        <li>Terms and Conditions</li>
+                    </a>
+                </ul>
+            </div>
+
+            <div class="footer-section contact-form">
+                <h3 style="color: white; font-size: 21px">Contact us</h3>
+                <br>
+                <form  method="post">
+                    <input type="email" name="email" class="text-input contact-input" placeholder="Your email address...">
+                    <textarea rows="4" name="message" class="text-input contact-input" placeholder="Your message..."></textarea>
+                    <button type="submit" class="btn btn-big contact-btn" style="margin-right:550px">
+                        <i class="fas fa-envelope"></i>
+                        Send
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+        
+    </div>
+    <!-- // footer -->
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Slick Carousel -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- Custom Script -->
+    <script src="~/template/js/scripts.js"></script>
+
+</body>
+
+</html>

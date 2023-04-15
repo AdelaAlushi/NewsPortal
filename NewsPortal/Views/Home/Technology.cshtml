@@ -1,0 +1,132 @@
+﻿@model IEnumerable<NewsPortal.Models.News>
+@{
+    ViewBag.Title = "Technology";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
+
+<!-- Custom Styling -->
+<link rel="stylesheet" href="~/template/css/style.css">
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script src="~/Scripts/navMenu.js"></script>
+
+
+<script src="~/Content/script.js"></script>
+<script src="~/Content/slick.js"></script>
+
+<link href="~/Content/style.css" rel="stylesheet" />
+<link href="~/Content/slick.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+<script src="~/Scripts/app.js"></script>
+<div class="header-mid gray-bg">
+    <div class="container">
+        <div class="row d-flex align-items-center">
+            <!-- Logo -->
+            <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
+                <div class="logo">
+                    <img src="~/template/images/logo.png" alt="">
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-9">
+                <div class="header-banner f-right ">
+                    <img src="~/template/images/header_card.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav id="custom-bootstrap-menu" class="navbar navbar-default">
+    <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="background-color: #ff69b4;color:white;font-size:22px">News Portal</a>
+    </div>
+    <div class="collapse navbar-collapse js-navbar-collapse" ng-app="MyApp" ng-controller="menuController" style="background-color: #ff69b4;color:white;font-size:20px">
+        <ul class="nav navbar-nav">
+            <li class="dropdown mega-dropdown" ng-repeat="menu in SiteMenu track by $index" style="background-color: #ff69b4;color:white;font-size:20px">
+                <a href="{{menu.CategoryId}}" class="dropdown-toggle" data-toggle="dropdown" style="background-color: #ff69b4;color:white;font-size:20px">{{menu.Name}} <span class="caret"></span></a>
+                @*<li>@Html.Partial("_LoginPartial")</li>*@
+
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                <li style="color:white">@Html.ActionLink("Dashboard", "Dashboard", "Admin")</li>
+
+            }
+
+
+            @*else
+                {
+                    <li>@Html.ActionLink("Dashboard", "Dashboard", "Journalist")</li>
+
+                }*@
+                <ul class="dropdown-menu mega-dropdown-menu">
+
+                    <li class="dropdown-header">{{menu.CategoryName}}</li>
+                    <li class="col-sm-3" ng-repeat="item in menu.SubCategory track by $index">
+                        <ul>
+
+                            <li><a href="{{item.SubCategoryUrl}}" style="background-color:palevioletred">{{item.SubCategoryName}}</a></li>
+
+
+                        </ul>
+                    </li>
+                </ul>
+
+
+
+            </ul>
+
+        </div>
+
+
+
+
+
+
+
+
+        <br /> <br /> <br />
+        <h1 class="recent-post-title" style="margin-right:100px;color:black">Technology Posts</h1>
+        <div class="container">
+
+            <br /><br /><br />
+            @foreach (var item in Model)
+            {
+                if (item.CategoryId == 22)
+
+                {
+                    <div class="col-md-4" style="margin-bottom:25px">
+                        <div class="thumbnail">
+                            <div class="img-responsive" style="margin-bottom:20px">
+                                <img src="~/NewsImages/@item.Image" height="350" width="340" />
+                            </div>
+                            <div class="caption" style="border-top:3px solid #808080;color:black">
+                                <h4><a href="#">@item.Title</a></h4>
+                                <fieldset>
+
+                                    <input type="button" name="submit" value="Learn More" class="btn btn-danger" onclick='window.location = "@Url.Action("News", "Home", new { Id = item.NewsId })";' />
+                                </fieldset>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                }
+            }
+        </div>
+
+    </nav>

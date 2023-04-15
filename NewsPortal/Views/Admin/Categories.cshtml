@@ -1,0 +1,66 @@
+﻿@model List <NewsPortal.Models.Category>
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Dashboard", "Admin")">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active"> <a href="@Url.Action("Categories", "Admin")"></a>Categories</li>
+
+    </ol>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Category Details
+            @if (Model != null)
+            {
+                <a href="@Url.Action("AddCategory", "Admin")" class="btn btn-info pull-right fa fa-plus">Add New</a>
+            }
+            </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Category Name</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+       
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                        <tr>
+                            <td>@(Model.IndexOf(item) + 1)</td>
+                            <td>@item.Name</td>
+                            <td>@item.Status</td>
+
+                            <td>
+
+                                @Html.ActionLink("Edit", "CategoryEdit", new { catId = item.CategoryId }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-edit  pull-left fa fa-eye", @style = "background-color:orange;border:none;height:30px", @title = "Edit" })
+
+                                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-remove fa fa-trash", @title = "Delete", @style = "border:none;height:30px" })
+                            </td>
+
+
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿@model NewsPortal.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<br />
+<br />
+<br />
+<img src="https://img.icons8.com/ios/50/000000/edit-user-male.png" style="padding-left:440px" />
+<h3 style="display:inline-block;padding-left:40px;font-size:30px">Register</h3></span>
+<link href="~/Content/font-awesome.css" rel="stylesheet" />
+<style type="text/css">
+    body {
+        background-image: url('../../Content/Images/registerimg.png');
+        margin: 0;
+    }
+</style>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group" style="margin-left:300px">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group" style="margin-left:300px">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group" style="margin-left:300px">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group" style="margin-left:300px">
+        <div class="col-md-offset-2 col-md-10">
+
+            <input type="submit" class="btn btn-group" value="Register" style="margin-left:80px;background-color:#CD5C5C;color:white" />
+
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

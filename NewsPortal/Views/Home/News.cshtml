@@ -1,0 +1,454 @@
+﻿
+@model NewsPortal.Models.News
+@{
+    ViewBag.Title = "News";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+              integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link href="~/Content/comment.css" rel="stylesheet" />
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
+
+        <!-- Custom Styling -->
+        <link rel="stylesheet" href="~/template/css/style.css">
+
+        <link rel="stylesheet" href="~/template/css/style.css">
+
+        <title>Home Page</title>
+
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+        <script src="~/Scripts/navMenu.js"></script>
+
+        @*<link href="~/Content/navMenu.css" rel="stylesheet" />*@
+        <script src="~/Content/script.js"></script>
+        <script src="~/Content/slick.js"></script>
+
+        <link href="~/Content/style.css" rel="stylesheet" />
+        <link href="~/Content/slick.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        <script src="~/Scripts/app.js"></script>
+    </head>
+
+    <body>
+
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous"
+                src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=285071545181837&autoLogAppEvents=1"></script>
+
+        <div class="container">
+            <div class="header-mid gray-bg">
+                <div class="container">
+                    <div class="row d-flex align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
+                            <div class="logo">
+                                <img src="~/template/images/logo.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-9">
+                            <div class="header-banner f-right ">
+                                <img src="~/template/images/header_card.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="collapse navbar-collapse js-navbar-collapse" ng-app="MyApp" ng-controller="menuController" style="background-color: #ff69b4;color:white;font-size:20px">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown mega-dropdown" ng-repeat="menu in SiteMenu track by $index" style="background-color: #ff69b4;color:white;font-size:20px">
+                        <a href="{{menu.CategoryId}}" class="dropdown-toggle" data-toggle="dropdown" style="background-color: #ff69b4;color:white;font-size:20px">{{menu.Name}} <span class="caret"></span></a>
+                    @*<li>@Html.Partial("_LoginPartial")</li>*@
+                @*</ul>*@
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <li style="color:white">@Html.ActionLink("Dashboard", "Dashboard", "Admin")</li>
+
+                }
+
+
+                else if (Request.IsAuthenticated && User.IsInRole("Journalist"))
+                {
+                    <li>@Html.ActionLink("Dashboard", "Dashboard", "Journalist")</li>
+
+                }
+                <ul class="dropdown-menu mega-dropdown-menu">
+
+                    <li class="dropdown-header">{{menu.CategoryName}}</li>
+                    <li class="col-sm-3" ng-repeat="item in menu.SubCategory track by $index">
+                        <ul>
+
+                            <li><a href="{{item.SubCategoryUrl}}" style="background-color:palevioletred">{{item.SubCategoryName}}</a></li>
+
+
+                        </ul>
+                    </li>
+                </ul>
+
+
+
+                </ul>
+
+            </div>
+ </div>
+
+     
+        <div class="page-wrapper">
+
+
+            <div class="content clearfix">
+
+
+                <div class="main-content-wrapper">
+                    <div class="main-content single">
+
+                        <div class="post-content">
+
+                            <dl class="row" style="border:1px solid black;box-shadow:20px 20px 50px 20px;padding:35px">
+
+
+
+                                <dd class="col-sm-10" style="color:black;font-size:35px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+
+                                    @Html.DisplayFor(model => model.Title)
+
+                                </dd>
+                                <dd class="col-sm-10">
+                                    <img src="~/NewsImages/@Model.Image" style="height:500px;width:500px" />
+
+                                </dd>
+
+                                <dd class="col-sm-10">
+
+                                    @Html.DisplayFor(model => model.Description)
+
+                                </dd>
+
+
+
+
+                            </dl>
+
+                        </div>
+
+                        <div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="sidebar single">
+
+                    <div class="fb-page" data-href="https://web.facebook.com/codingpoets/" data-small-header="false"
+                         data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                        <blockquote cite="https://web.facebook.com/codingpoets/" class="fb-xfbml-parse-ignore">
+                            <a href="https://web.facebook.com/codingpoets/">Coding Poets</a>
+                        </blockquote>
+                    </div>
+
+
+                    <div class="section popular">
+
+
+                    </div>
+
+                    <div class="section topics">
+                        <h3 class="section-title">Categories</h3>
+                        <ul>
+                            <li><a href="@Url.Action("Destinations","Home")">Travel</a></li>
+                            <li><a href="@Url.Action("Technology","Home")">Technology</a></li>
+                            <li><a href="@Url.Action("Sport","Home")">Sport</a></li>
+                            <li><a href="@Url.Action("Trends","Home")">Fashion</a></li>
+                            <li><a href="@Url.Action("Magazine","Home")">Magazine</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- // Sidebar -->
+
+            </div>
+
+            <div class="row">
+
+                <div class="container" style="margin-right:850px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 class="page-title" style="padding-right:820px">Leave Your Comment</h3>
+                            <br/>
+                            <br/>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-left:50px">
+                        <div class="col-sm-1">
+                            <div class="thumbnail">
+                                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <textarea cols="15" id="commentInput" class="form-control" placeholder="Leave your comment here.."></textarea>
+                                </div>
+                                <div class="panel-heading comment-action">
+                                    <div class="submit-comment">
+                                        <a id="addNewCommentBtn" href="#" style="background-color:palevioletred">Submit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @Html.Action("CommentPartial")
+
+                </div>
+            </div>
+
+
+            <script id="comment-template" type="text/x-handlebars-template">
+                <li class="comment" data-id="{{commentId}}" style="background-color:white">
+                    <div class="avatar">
+                        <a href="javascript:void(0);">
+                            <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="55" height="55">
+                        </a>
+                    </div>
+                    <div class="comment-body"style="background-color:white">
+                        <header style="padding-left:30px;">
+                            <a href="javascript:void(0);" class="userlink" style="background-color:white">{{username}}</a> - <span class="pubdate"  style="background-color:white">
+                                posted {{strCommentDate}}
+                            </span>
+                        </header>
+                        <p>
+                            {{commentText}}
+                        </p>
+                        <footer>
+                            <a class="reply-link" href="{{commentId}}">Reply</a>
+                        </footer>
+                    </div>
+
+                </li>
+            </script>
+
+            <script id="reply-template" type="text/template">
+                <div style="padding-top:10px" class="row reply-form">
+                    <div class="col-sm-2">
+                        <div class="thumbnail">
+                            <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <textarea cols="15" id="replyInput" class="form-control" placeholder="Reply to conversation.."></textarea>
+                            </div>
+                            <div class="panel-heading comment-action">
+                                <div class="submit-comment">
+                                    <a class="addReplyBtn" href="#">Submit</a>
+                                    <input type="hidden" name="hidParentId" class="hidParentId" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </script>
+
+
+            @section scripts{
+                <script src="~/Scripts/handlebars-v4.0.12.js"></script>
+                <script>
+
+
+        function addNewComment(data) {
+            return $.ajax({
+                type: "POST",
+                url: '@Url.Action("addNewComment", "Home")',
+                data: data,
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8'
+            });
+        }
+
+
+
+    $(function () {
+
+        var source = document.getElementById("comment-template").innerHTML;
+        var template = Handlebars.compile(source);
+
+
+        $("#addNewCommentBtn").click(function (e) {
+            e.preventDefault();
+            var data = JSON.stringify({
+                parentId: 0,
+                commentText: $("#commentInput").val(),
+                username: Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 5)
+            });
+
+
+            $.when(addNewComment(data)).then(function (response) {
+                if (response.error == false) {
+                    var $commentHtml = template(response.result);
+                    $(".comments").append($commentHtml);
+                    $("#commentInput").val('');
+                } else {
+                    console.log("An error has occured");
+                }
+            }).fail(function (err) {
+                console.log(err);
+            })
+        });
+
+
+        $(document).on("click", ".reply-link", function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            var $commentListItem = $self.parents(".comment-body");
+            var replySource = document.getElementById("reply-template").innerHTML;
+            $commentListItem.after(replySource);
+
+            $(document).find(".hidParentId").val($self.attr("href"));
+
+        });
+
+
+
+        $(document).on("click", ".addReplyBtn", function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            var $replyInput = $(document).find("#replyInput");
+            var parentId = $(document).find(".hidParentId").val();
+            var $repliesUL = $(document).find("ul[data-parentid='" + parentId + "']");
+            var $commentBody = $(document).find("[data-id='" + parentId + "']");
+            var replyULCount = $repliesUL.length;
+
+
+
+            var data = JSON.stringify({
+                parentId: parentId,
+                commentText: $replyInput.val(),
+                username: Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 5)
+            });
+
+            $.when(addNewComment(data)).then(function (response) {
+                if (response.error == false) {
+                    var commentHtml = template(response.result);
+
+                    if (replyULCount > 0) {
+
+                        $repliesUL.append(commentHtml);
+                    } else {
+
+                        $commentBody.append("<ul class='replies'></ul>")
+                            .append(commentHtml);
+                    }
+
+                    $(document).find(".reply-form").remove();
+
+                } else {
+                    console.log("An error has occured");
+                }
+            }).fail(function (err) {
+                console.log(err);
+            })
+
+        });
+
+
+
+    });
+                </script>
+
+
+            }
+
+
+        </div>
+        <!-- // Page Wrapper -->
+        <!-- footer -->
+        <div class="footer">
+            <div class="footer-content">
+
+                <div class="footer-section about">
+
+                    <img src="~/template/images/logo.png" alt="">
+                    <div class="contact">
+                        <span><i class="fas fa-phone"></i> &nbsp; 123-456-789</span>
+                        <span><i class="fas fa-envelope"></i> &nbsp; info@news.com</span>
+                    </div>
+                    <div class="socials">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section links">
+                    <h3 style="color: white; font-size: 21px">Quick Links</h3>
+                    <br>
+                    <ul>
+                       
+                        <a href="#">
+                            <li>Terms and Conditions</li>
+                        </a>
+                    </ul>
+                </div>
+
+                <div class="footer-section contact-form">
+                    <h3 style="color: white; font-size: 21px;margin-right:200px">Contact us</h3>
+                    <br>
+                    <form method="post">
+                        <input type="email" name="email" class="text-input contact-input" placeholder="Your email address...">
+                        <textarea rows="4" name="message" class="text-input contact-input" placeholder="Your message..."></textarea>
+                        <button type="submit" class="btn btn-big contact-btn" style="margin-right:550px">
+                            <i class="fas fa-envelope"></i>
+                            Send
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+
+        </div>
+       
+            <script src="~/Scripts/handlebars.js"></script>
+            <script src="~/Scripts/handlebars-v4.0.12.js"></script>
+            <script src="~/Scripts/jquery.autosize-min.js"></script>
+            <script src="~/Scripts/jquery.timeago.js"></script>
+
+            <script src="~/Scripts/wallpost.js"></script>
+
+            <script src="~/Scripts/knockout-3.5.1.js"></script>
+        
+        <!-- // footer -->
+        <!-- JQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Slick Carousel -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+        <!-- Custom Script -->
+        <script src="~/template/js/scripts.js"></script>
+
+        
+    </body>
+
+</html>

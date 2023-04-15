@@ -1,0 +1,76 @@
+﻿@model NewsPortal.Models.News
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 style="padding-left:40px;color:red">Details</h2>
+
+<div style="padding-left:40px">
+ 
+ 
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd class="col-sm-10">
+            <img src="~/NewsImages/@Model.Image" style="height: 500px;width: 500px;margin-right: 120px" />
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToBeDefined)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToBeDefined)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+    </dl>
+</div>
+<p style="padding-left:40px">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.NewsId }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-edit  pull-left fa fa-eye", @style = "background-color:blue;border:none;height:30px", @title = "Edit" }) 
+    @Html.ActionLink("Back to List", "Index")
+</p>

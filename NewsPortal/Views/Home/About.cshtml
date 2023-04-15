@@ -1,0 +1,195 @@
+﻿
+
+@model IEnumerable<NewsPortal.Models.News>
+@{ ViewBag.Title = "Home Page";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<html>
+
+
+<head>
+    <title>Home Page</title>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script src="~/Scripts/navMenu.js"></script>
+    <link href="~/Content/navMenu.css" rel="stylesheet" />
+    <script src="~/Content/script.js"></script>
+    <script src="~/Content/slick.js"></script>
+
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/slick.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
+
+    <!-- Custom Styling -->
+
+    <link href="~/template/css/style.css" rel="stylesheet" />
+    <script>
+        function AjaxPost(formData) {
+            var ajaxConfig = {
+                type: "POST",
+                url: "/News/Create",
+                data: new FormData(formData),
+                success: function (result) {
+                    alert(result);
+                    window.location.href = "/News/Create";
+                }
+            }
+            if ($(formData).attr('enctype') == "multipart/form-data") {
+                ajaxConfig["contentType"] = false;
+                ajaxConfig["processData"] = false;
+            }
+            $.ajax(ajaxConfig);
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header-mid gray-bg">
+            <div class="container">
+                <div class="row d-flex align-items-center">
+                    <!-- Logo -->
+                    <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
+                        <div class="logo">
+                            <img src="~/template/images/logo.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9">
+                        <div class="header-banner f-right ">
+                            <img src="~/template/images/header_card.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <nav id="custom-bootstrap-menu" class="navbar navbar-default">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">News Portal</a>
+            </div>
+
+
+
+
+            <div class="collapse navbar-collapse js-navbar-collapse" ng-app="MyApp" ng-controller="menuController">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown mega-dropdown" ng-repeat="menu in SiteMenu track by $index">
+                        <a href="{{menu.CategoryId}}" class="dropdown-toggle" data-toggle="dropdown">{{menu.Name}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu mega-dropdown-menu">
+                            <li class="dropdown-header">{{menu.CategoryName}}</li>
+                            <li class="col-sm-3" ng-repeat="item in menu.SubCategory track by $index">
+                                <ul>
+
+                                    <li><a href="{{item.SubCategoryUrl}}">{{item.SubCategoryName}}</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+
+            </div>
+
+
+
+
+
+    </div>
+    <div id="myCarousel" class="carousel slide" style="width:100%">
+
+        <div class="carousel-inner" style="width:100%">
+            <div class="item" style="">
+                <div class="slider-item" style="background-image: url('/NewsImages/307968-lake210340972.jp')">
+                    <div class="slider-overlay" style=" height: 90vh;">
+                        <h2>You've got the talent</h2>
+                        <hr>
+                        <p>We support new talents always.</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="item active">
+                <div class="slider-item" style="background-image: url('/Content/Images/img.jpg'">
+                    <div class="slider-overlay" style=" height: 90vh;">
+                        <h2>Learn from the Bests</h2>
+                        <hr>
+                        <p>Best  news portal</p>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="">
+                <div class="slider-item" style="background-image: url('/Content/Images/login-image.jpeg');">
+                    <div class="slider-overlay" style=" height: 90vh;">
+                        <h2>High Quality Instructors</h2>
+                        <hr>
+                        <p>Here you can find the best instructors in world of technology</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+
+
+    </nav>
+
+
+
+    <div class="container">
+        <h3 style="font-family:'Agency FB';color:deeppink;font-size:40px"><b style="color:black">News</b> List</h3>
+        <br /><br /><br />
+        @foreach (var item in Model)
+        {
+
+<div class="col-md-4" style="margin-bottom:25px">
+    <div class="thumbnail">
+        <div class="img-responsive" style="margin-bottom:20px">
+            <img src="~/NewsImages/@item.Image" height="350" width="340" />
+        </div>
+        <div class="caption" style="border-top:3px solid #808080;color:black">
+            <h4><a href="#">@item.Title</a></h4>
+            <fieldset>
+
+                <input type="button" name="submit" value="Learn More" class="btn btn-danger" onclick='window.location = "@Url.Action("News", "Home", new { Id = item.NewsId})";' />
+            </fieldset>
+
+        </div>
+    </div>
+</div>}
+    </div>
+
+
+
+
+</body>
+
+
+</body>
+</html>

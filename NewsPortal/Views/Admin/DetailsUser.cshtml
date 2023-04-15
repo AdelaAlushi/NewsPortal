@@ -1,0 +1,28 @@
+﻿@model NewsPortal.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "DetailsUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>DetailsUser</h2>
+
+<div>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+
+       
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
